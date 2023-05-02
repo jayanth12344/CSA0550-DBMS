@@ -1,0 +1,139 @@
+Enter password: *****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 7
+Server version: 5.5.62 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use school;
+Database changed
+mysql> show tables;
++------------------+
+| Tables_in_school |
++------------------+
+| books            |
+| faculty          |
+| members          |
+| student          |
+| studepartment    |
++------------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from members;
++-----------+---------+------+-----------+-------------+
+| Regno     | Name    | Dept | Address   | Fathername  |
++-----------+---------+------+-----------+-------------+
+| 192011196 | jayanth | ECE  | kadapa    | siva        |
+| 192011197 | moorthy | CSE  | hyderabad | mahesh      |
+| 192011377 | prabhas | IT   | hyderabad | srinivasulu |
+| 192011019 | rajesh  | CSE  | lucknow   | madesh      |
++-----------+---------+------+-----------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from members where Dept="CSE";
++-----------+---------+------+-----------+------------+
+| Regno     | Name    | Dept | Address   | Fathername |
++-----------+---------+------+-----------+------------+
+| 192011197 | moorthy | CSE  | hyderabad | mahesh     |
+| 192011019 | rajesh  | CSE  | lucknow   | madesh     |
++-----------+---------+------+-----------+------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from members where Name="jayanth";
++-----------+---------+------+---------+------------+
+| Regno     | Name    | Dept | Address | Fathername |
++-----------+---------+------+---------+------------+
+| 192011196 | jayanth | ECE  | kadapa  | siva       |
++-----------+---------+------+---------+------------+
+1 row in set (0.00 sec)
+
+mysql> alter table members add Marks int(5);
+Query OK, 4 rows affected (0.03 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> desc members;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| Regno      | int(20)     | YES  |     | NULL    |       |
+| Name       | varchar(20) | YES  |     | NULL    |       |
+| Dept       | varchar(20) | YES  |     | NULL    |       |
+| Address    | varchar(20) | YES  |     | NULL    |       |
+| Fathername | varchar(20) | YES  |     | NULL    |       |
+| Marks      | int(5)      | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+6 rows in set (0.03 sec)
+
+mysql> update members set Marks=99 where Dept="ECE";
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update members set Marks=90 where Dept="CSE";
+Query OK, 2 rows affected (0.00 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> update members set Marks=85 where Dept="IT";
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from members;
++-----------+---------+------+-----------+-------------+-------+
+| Regno     | Name    | Dept | Address   | Fathername  | Marks |
++-----------+---------+------+-----------+-------------+-------+
+| 192011196 | jayanth | ECE  | kadapa    | siva        |    99 |
+| 192011197 | moorthy | CSE  | hyderabad | mahesh      |    90 |
+| 192011377 | prabhas | IT   | hyderabad | srinivasulu |    85 |
+| 192011019 | rajesh  | CSE  | lucknow   | madesh      |    90 |
++-----------+---------+------+-----------+-------------+-------+
+4 rows in set (0.00 sec)
+
+mysql> select * from members where Name like "J%";
++-----------+---------+------+---------+------------+-------+
+| Regno     | Name    | Dept | Address | Fathername | Marks |
++-----------+---------+------+---------+------------+-------+
+| 192011196 | jayanth | ECE  | kadapa  | siva       |    99 |
++-----------+---------+------+---------+------------+-------+
+1 row in set (0.00 sec)
+
+mysql> select * from members where Address like "k%";
++-----------+---------+------+---------+------------+-------+
+| Regno     | Name    | Dept | Address | Fathername | Marks |
++-----------+---------+------+---------+------------+-------+
+| 192011196 | jayanth | ECE  | kadapa  | siva       |    99 |
++-----------+---------+------+---------+------------+-------+
+1 row in set (0.00 sec)
+
+mysql> select * from members where Address like "h%";
++-----------+---------+------+-----------+-------------+-------+
+| Regno     | Name    | Dept | Address   | Fathername  | Marks |
++-----------+---------+------+-----------+-------------+-------+
+| 192011197 | moorthy | CSE  | hyderabad | mahesh      |    90 |
+| 192011377 | prabhas | IT   | hyderabad | srinivasulu |    85 |
++-----------+---------+------+-----------+-------------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select * from members where Dept like "C%";
++-----------+---------+------+-----------+------------+-------+
+| Regno     | Name    | Dept | Address   | Fathername | Marks |
++-----------+---------+------+-----------+------------+-------+
+| 192011197 | moorthy | CSE  | hyderabad | mahesh     |    90 |
+| 192011019 | rajesh  | CSE  | lucknow   | madesh     |    90 |
++-----------+---------+------+-----------+------------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select * from members where Address like "h______a_%";
++-----------+---------+------+-----------+-------------+-------+
+| Regno     | Name    | Dept | Address   | Fathername  | Marks |
++-----------+---------+------+-----------+-------------+-------+
+| 192011197 | moorthy | CSE  | hyderabad | mahesh      |    90 |
+| 192011377 | prabhas | IT   | hyderabad | srinivasulu |    85 |
++-----------+---------+------+-----------+-------------+-------+
+2 rows in set (0.00 sec)
+
+mysql>
